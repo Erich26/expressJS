@@ -6,7 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'My Express Project' });
 });
 
-router.get('/datetime', (req, res) => {
-  res.render(Date())
+router.get('/', function(req, res) {
+
+  res.render('index', {datetime: Date()})
 })
 module.exports = router;
