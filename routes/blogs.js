@@ -8,10 +8,34 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/all', (req, res) => {
-    res.json(importBlogs.blogPosts)
+    const sortOrder = req.query.sort;
+    importBlogs.blogPosts.sort((a, b) => {
+       const aCreatedat = a.createdAt
+       const bCreatedAt = b.createdAt
+       if (sortOrder === "asc") {
+           if (aCreatedat < bCreatedAt) {
+               return -1;
+           }
+           if (aCreatedat > bCreatedAt) {
+               return 1;
+           }
+       }
+       if (sortOrder === "desc") {
+           if (aCreatedat > bCreatedAt) {
+               return -1;
+           }
+           if (aCreatedat < bCreatedAt) {
+               return 1;
+           }
+       }
+       return 0;
+    })
+
+    res.json(importBlogs.blogPosts.map(el=>el.id));
+
 });
 
-router.get('/:blogId', (req, res) => {
+router.get('singleBlog/:blogId', (req, res) => {
     const blogId = req.params.blogId;
     res.json(findBlogId(blogId));
 });
