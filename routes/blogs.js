@@ -45,10 +45,8 @@ router.get('/singleblog/:blogId', (req, res) => {
 
 
 router.get('/postBlog', function (req, res, next) {
-
     var data = req.body
     const newBlogs = data
-    console.log(newBlogs)
     res.render('postBlog')
 });
 
@@ -67,10 +65,8 @@ router.post('/submit', function (req, res, next) {
         author: data.author,
         id: stringify(listBlog.length + 1)
     }
-    console.log(newPost)
     listBlog.push(newPost)
-    console.log('updated list', listBlog)
-    res.send(ok)
+    res.send(OK)
 
 });
 
