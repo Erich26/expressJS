@@ -65,7 +65,7 @@ router.post('/submit', function (req, res, next) {
         title: data.title,
         text: data.text,
         author: data.author,
-        id: listBlog.length + 1
+        id: stringify(listBlog.length + 1)
     }
     console.log(newPost)
     listBlog.push(newPost)
