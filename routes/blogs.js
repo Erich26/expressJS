@@ -1,7 +1,10 @@
 var express = require('express');
+const { stringify } = require('nodemon/lib/utils');
 var router = express.Router();
 
-var importBlogs = require("../public/sampleBlogs");
+let importBlogs = require("../public/sampleBlogs");
+const listBlog = importBlogs.blogPosts;
+
 
 router.get('/', function(req, res, next) {
     res.send('Welcome to blogs')
@@ -35,9 +38,36 @@ router.get('/all', (req, res) => {
 
 });
 
-router.get('singleBlog/:blogId', (req, res) => {
+router.get('/singleblog/:blogId', (req, res) => {
     const blogId = req.params.blogId;
     res.json(findBlogId(blogId));
+});
+
+
+router.get('/postBlog', function (req, res, next) {
+
+    var data = req.body
+    const newBlogs = data
+    console.log(newBlogs)
+    res.render('postBlog')
+});
+
+router.post('/submit', function (req, res, next) {
+    const data = req.body
+    const today = new Date()
+
+    const newPost = {
+        createdAt: stringify(today),
+        title: data.title,
+        text: data.text,
+        author: data.author,
+        id: listBlog.length + 1
+    }
+    console.log(newPost)
+    listBlog.push(newPost)
+    console.log('updated list', listBlog)
+    res.send(ok)
+
 });
 
 const findBlogId = (blogId) => {
