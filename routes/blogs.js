@@ -34,7 +34,7 @@ router.get('/all', (req, res) => {
        return 0;
     })
 
-    res.json(importBlogs.blogPosts.map(el=>el.id));
+    res.json(importBlogs.blogPosts.map((el)=>{return el}));
 
 });
 
@@ -51,6 +51,10 @@ router.get('/postBlog', function (req, res, next) {
     console.log(newBlogs)
     res.render('postBlog')
 });
+
+router.get('/displayBlogs', (req, res) => {
+    res.render('displayBlogs')
+})
 
 router.post('/submit', function (req, res, next) {
     const data = req.body
