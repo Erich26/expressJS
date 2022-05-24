@@ -70,6 +70,18 @@ router.post('/submit', function (req, res, next) {
 
 });
 
+router.get('/displaysingleblog', (req, res) => {
+    res.render('displaysingleblog')
+});
+
+router.delete('/deletesingleblog/:blogid', (req, res) => {
+    let blogs = importBlogs.blogPosts;
+    const blogId = parseInt(req.params.blogId);
+    const foundBlog = blogs[blogId];
+    res.send('OK')
+})
+
+
 const findBlogId = (blogId) => {
     const foundBlog = importBlogs.blogPosts.find((blog) => {
         return blog.id === blogId;
